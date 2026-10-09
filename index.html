@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AURÉA — Pureza, elevada.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#e9cf8e;--ice:#cfe3ff;--k:0}
+html,body{height:100%;overflow:hidden;background:#060a16;color:#eef3fb;font-family:Inter,system-ui,sans-serif;font-weight:300}
+/* ===== CÉU, NUVENS E MONTANHAS ===== */
+#sky{position:fixed;inset:0;background:
+ radial-gradient(circle at 78% 18%,rgba(190,215,255,.28),transparent 22%),
+ linear-gradient(#050814 0%,#0d1b38 50%,#2f4a75 85%,#516d99 100%)}
+.cloud{position:absolute;width:42vw;height:13vw;border-radius:50%;filter:blur(22px);
+ background:radial-gradient(ellipse,rgba(205,225,255,.30),transparent 70%);animation:drift linear infinite}
+.c1{top:12%;animation-duration:70s}.c2{top:30%;animation-duration:95s;animation-delay:-40s;opacity:.7}
+.c3{top:48%;animation-duration:80s;animation-delay:-20s}.c4{top:62%;animation-duration:110s;animation-delay:-70s;opacity:.8}
+.c5{top:6%;animation-duration:120s;animation-delay:-90s;opacity:.5}
+@keyframes drift{from{transform:translateX(-50vw)}to{transform:translateX(110vw)}}
+.mt{position:absolute;bottom:0;left:-15vw;width:130vw;transition:transform 1.4s cubic-bezier(.77,0,.18,1)}
+.m1{height:62vh;transform:translateX(calc(var(--k)*-2vw))}
+.m2{height:48vh;transform:translateX(calc(var(--k)*-4vw))}
+.m3{height:34vh;transform:translateX(calc(var(--k)*-7vw))}
+.mist{position:absolute;left:0;right:0;bottom:0;height:35vh;background:linear-gradient(transparent,rgba(160,190,235,.18))}
+/* ===== CUBO 3D ===== */
+#stage{position:fixed;inset:0;perspective:2600px;overflow:hidden}
+#cube{position:absolute;inset:0;transform-style:preserve-3d;
+ transform:translateZ(-50vw) rotateY(calc(var(--i,0)*-90deg));transition:transform 1.4s cubic-bezier(.77,0,.18,1)}
+.face{position:absolute;inset:0;transform:rotateY(calc(var(--n)*90deg)) translateZ(50vw);backface-visibility:hidden}
+.face::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,8,20,.5),transparent 20%,transparent 80%,rgba(5,8,20,.5));pointer-events:none}
+.content{position:absolute;top:50%;left:7vw;width:42vw;transform:translateY(-50%);z-index:2}
+.content.r{left:auto;right:7vw}
+.content>*{opacity:0;transform:translateY(26px);transition:opacity .9s,transform .9s}
+.face.on .content>*{opacity:1;transform:none}
+.face.on .content>*:nth-child(1){transition-delay:.9s}.face.on .content>*:nth-child(2){transition-delay:1.05s}
+.face.on .content>*:nth-child(3){transition-delay:1.2s}.face.on .content>*:nth-child(4){transition-delay:1.35s}
+.eyebrow{font-size:.7rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:1.6rem}
+h1,h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;line-height:.98;letter-spacing:-.01em}
+h1{font-size:clamp(3.4rem,8vw,7.2rem)}h2{font-size:clamp(2.6rem,5.6vw,5rem)}
+h1 em,h2 em{font-style:italic;color:var(--gold)}
+p.lead{margin:1.8rem 0 2.2rem;max-width:30rem;line-height:1.8;color:#b9c8e0;font-size:.98rem}
+.btn{display:inline-block;padding:1rem 2.1rem;border:1px solid rgba(233,207,142,.6);color:var(--gold);background:rgba(233,207,142,.04);
+ font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(8px);transition:.4s;margin-right:.8rem;font-family:inherit}
+.btn:hover{background:var(--gold);color:#0a1020}
+.btn.solid{background:var(--gold);color:#0a1020}.btn.solid:hover{background:transparent;color:var(--gold)}
+.stats{display:flex;gap:2.4rem;margin-top:2rem}
+.stat b{display:block;font-family:"Cormorant Garamond",serif;font-weight:300;font-size:2.6rem;color:var(--gold)}
+.stat span{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#9fb2d0}
+.feat{list-style:none;margin-top:2rem}
+.feat li{padding:1.1rem 0;border-top:1px solid rgba(207,227,255,.15);display:flex;gap:1.4rem;align-items:baseline;color:#b9c8e0;font-size:.92rem}
+.feat li b{font-family:"Cormorant Garamond",serif;font-size:1.7rem;font-weight:400;color:#fff;min-width:9.5rem}
+.cards{margin-top:2rem;display:grid;gap:.9rem}
+.card{padding:1.2rem 1.5rem;border:1px solid rgba(207,227,255,.18);background:rgba(10,20,40,.45);backdrop-filter:blur(14px);
+ display:flex;justify-content:space-between;align-items:center;transition:.4s;cursor:pointer}
+.card:hover{border-color:var(--gold);transform:translateX(8px)}
+.card b{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:400}
+.card small{display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#9fb2d0;margin-top:.2rem}
+.card i{font-style:normal;color:var(--gold);font-family:"Cormorant Garamond",serif;font-size:1.4rem}
+/* ===== ESCOVA 3D ===== */
+#brush{position:fixed;inset:0;z-index:5;pointer-events:none;perspective:1500px;
+ transform:translateX(calc(var(--x,24)*1vw));transition:transform 1.4s cubic-bezier(.77,0,.18,1)}
+#tilt{position:absolute;inset:0;display:grid;place-items:center;transform-style:preserve-3d;
+ transform:rotateX(calc(var(--my,0)*-7deg)) rotateY(calc(var(--mx,0)*9deg))}
+#float{position:relative;height:72vh;aspect-ratio:100/480;transform-style:preserve-3d;animation:fl 6s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-16px)}}
+#spin{height:100%;transform-style:preserve-3d;transform:rotateZ(var(--rz,-16deg)) rotateY(calc(var(--k)*360deg));
+ transition:transform 1.4s cubic-bezier(.77,0,.18,1)}
+#spin svg{height:100%;width:100%;overflow:visible;filter:drop-shadow(0 30px 40px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(170,205,255,.25))}
+.ring{position:absolute;left:50%;top:60%;width:min(50vh,430px);aspect-ratio:1;border-radius:50%;
+ border:12px solid rgba(190,220,255,.28);box-shadow:0 0 40px rgba(170,210,255,.35),inset 0 0 30px rgba(170,210,255,.3);
+ animation:rg 9s linear infinite}
+.ring.g{width:min(40vh,350px);border:2px solid rgba(233,207,142,.7);box-shadow:0 0 24px rgba(233,207,142,.35);animation-duration:13s;animation-direction:reverse}
+@keyframes rg{from{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0)}to{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(360deg)}}
+.rip{position:absolute;left:50%;bottom:-3vh;width:30vh;height:7vh;border:1px solid rgba(207,227,255,.4);border-radius:50%;
+ transform:translateX(-50%) scale(.3);opacity:0;animation:rp 5s ease-out infinite}
+.rip:nth-of-type(2){animation-delay:1.6s}.rip:nth-of-type(3){animation-delay:3.2s}
+@keyframes rp{20%{opacity:.8}to{transform:translateX(-50%) scale(2.6);opacity:0}}
+/* ===== NAVEGAÇÃO ===== */
+header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:2rem 4vw}
+.logo{font-family:"Cormorant Garamond",serif;font-size:1.7rem;letter-spacing:.35em;font-weight:400}
+nav{display:flex;gap:2.4rem}
+nav a{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:#9fb2d0;cursor:pointer;transition:.3s;padding-bottom:.3rem;border-bottom:1px solid transparent}
+nav a:hover,nav a.on{color:#fff;border-color:var(--gold)}
+#count{position:fixed;left:4vw;bottom:2.4rem;z-index:20;font-family:"Cormorant Garamond",serif;font-size:1.3rem;color:var(--gold);letter-spacing:.2em}
+#count span{color:#6f84a8;font-size:.9rem}
+#arrows{position:fixed;right:4vw;bottom:2rem;z-index:20;display:flex;gap:.8rem}
+#arrows button{width:3.2rem;height:3.2rem;border-radius:50%;border:1px solid rgba(233,207,142,.5);background:rgba(10,20,40,.4);color:var(--gold);font-size:1.1rem;cursor:pointer;backdrop-filter:blur(8px);transition:.3s}
+#arrows button:hover{background:var(--gold);color:#0a1020}
+#hint{position:fixed;left:50%;bottom:2.4rem;transform:translateX(-50%);z-index:20;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:#6f84a8}
+@media(max-width:800px){
+ nav{display:none}.content,.content.r{left:8vw;right:auto;width:84vw}
+ #brush{transform:none;opacity:.35}#float{height:58vh}#hint{display:none}.stats{gap:1.2rem}.feat li b{min-width:7rem;font-size:1.3rem}
+}
+</style>
+</head>
+<body style="--k:0">
+<div id="sky">
+ <div class="cloud c5"></div><div class="cloud c1"></div><div class="cloud c2"></div>
+ <svg class="mt m1" viewBox="0 0 1600 400" preserveAspectRatio="none"><path fill="#24385c" opacity=".85" d="M0 400V220L180 120 300 190 470 70 640 210 820 110 1000 200 1180 60 1380 190 1600 120V400Z"/></svg>
+ <div class="cloud c3"></div>
+ <svg class="mt m2" viewBox="0 0 1600 400" preserveAspectRatio="none"><path fill="#13223f" d="M0 400V280L220 170 380 260 560 150 760 270 980 180 1200 280 1400 190 1600 260V400Z"/></svg>
+ <div class="cloud c4"></div>
+ <svg class="mt m3" viewBox="0 0 1600 400" preserveAspectRatio="none"><path fill="#070d1a" d="M0 400V330L260 260 420 320 700 240 950 330 1250 250 1600 330V400Z"/></svg>
+ <div class="mist"></div>
+</div>
+
+<header>
+ <div class="logo">AURÉA</div>
+ <nav><a data-p="0" class="on">Essência</a><a data-p="1">Design</a><a data-p="2">Tecnologia</a><a data-p="3">Coleção</a></nav>
+ <a class="btn" style="margin:0;padding:.7rem 1.4rem" onclick="to(3)">Reservar</a>
+</header>
+
+<div id="stage"><div id="cube">
+ <section class="face on" style="--n:0"><div class="content">
+  <div class="eyebrow">Maison de Soin Oral · Edição Nº 01</div>
+  <h1>Pureza,<br><em>elevada.</em></h1>
+  <p class="lead">A escova de dentes esculpida em titânio escovado e cerdas de seda, criada para um sorriso à altura do extraordinário.</p>
+  <div><a class="btn solid" onclick="go(1)">Descobrir</a><a class="btn" onclick="to(3)">Ver coleção</a></div>
+ </div></section>
+
+ <section class="face" style="--n:1"><div class="content r">
+  <div class="eyebrow">II · Design</div>
+  <h2>Esculpida,<br><em>não fabricada.</em></h2>
+  <p class="lead">Cada exemplar nasce de um único bloco de titânio grau 5, polido à mão por 14 horas e finalizado com um anel banhado a ouro 18k.</p>
+  <div class="stats">
+   <div class="stat"><b>Ti-5</b><span>Titânio aeronáutico</span></div>
+   <div class="stat"><b>18k</b><span>Banho de ouro</span></div>
+   <div class="stat"><b>0,01mm</b><span>Cerdas de seda</span></div>
+  </div>
+ </div></section>
+
+ <section class="face" style="--n:2"><div class="content">
+  <div class="eyebrow">III · Tecnologia</div>
+  <h2>Ciência em cada <em>vibração.</em></h2>
+  <ul class="feat">
+   <li><b>62.000 / min</b>Vibração sônica que dissolve o biofilme sem agredir a gengiva.</li>
+   <li><b>Sensor de pressão</b>Ajusta a intensidade em tempo real e protege o esmalte.</li>
+   <li><b>30 dias</b>Bateria com carga por indução, em base de cristal.</li>
+  </ul>
+ </div></section>
+
+ <section class="face" style="--n:3"><div class="content r">
+  <div class="eyebrow">IV · Coleção</div>
+  <h2>Escolha a sua <em>assinatura.</em></h2>
+  <div class="cards">
+   <div class="card"><div><b>Glacial</b><small>Titânio prata · cerdas azul-gelo</small></div><i>R$ 1.290</i></div>
+   <div class="card"><div><b>Aurora</b><small>Titânio champanhe · detalhe em ouro</small></div><i>R$ 1.690</i></div>
+   <div class="card"><div><b>Obsidiana</b><small>Titânio negro · edição limitada</small></div><i>R$ 2.490</i></div>
+  </div>
+  <p class="lead" style="margin-bottom:1.4rem">Entrega com estojo de couro e garantia vitalícia.</p>
+  <a class="btn solid">Reservar agora</a>
+ </div></section>
+</div></div>
+
+<div id="brush"><div id="tilt"><div id="float">
+ <div class="ring"></div><div class="ring g"></div>
+ <div id="spin">
+ <svg viewBox="0 0 100 480">
+  <defs>
+   <linearGradient id="s" x1="0" x2="1"><stop offset="0" stop-color="#5d6879"/><stop offset=".3" stop-color="#f6f9fd"/><stop offset=".6" stop-color="#aab6c8"/><stop offset="1" stop-color="#454f5f"/></linearGradient>
+   <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#8a6a2a"/><stop offset=".4" stop-color="#f6e2a0"/><stop offset="1" stop-color="#a47c33"/></linearGradient>
+   <linearGradient id="b" x1="0" x2="1"><stop offset="0" stop-color="#9fd0ff"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+  </defs>
+  <g fill="url(#b)">
+   <rect x="58" y="14" width="22" height="5" rx="2.5"/><rect x="58" y="25" width="22" height="5" rx="2.5"/><rect x="58" y="36" width="22" height="5" rx="2.5"/>
+   <rect x="58" y="47" width="22" height="5" rx="2.5"/><rect x="58" y="58" width="22" height="5" rx="2.5"/><rect x="58" y="69" width="22" height="5" rx="2.5"/>
+   <rect x="58" y="80" width="22" height="5" rx="2.5"/><rect x="58" y="91" width="22" height="5" rx="2.5"/>
+  </g>
+  <rect x="28" y="6" width="32" height="98" rx="14" fill="url(#s)"/>
+  <path fill="url(#s)" d="M34 98C37 140 40 150 42 172H56C58 150 61 140 64 98Z"/>
+  <path fill="url(#s)" d="M40 166C35 250 33 360 43 440Q47 472 50 472Q55 472 58 440C67 360 64 250 58 166Z"/>
+  <path fill="url(#g)" d="M40.5 215H58.5L59 226H40Z"/>
+  <path fill="url(#g)" d="M41.5 160H56.5L57 170H41Z"/>
+  <ellipse cx="50" cy="330" rx="2.2" ry="38" fill="#fff" opacity=".35"/>
+  <text x="50" y="300" font-family="Cormorant Garamond,serif" font-size="9" letter-spacing="2" fill="#2b3446" text-anchor="middle" transform="rotate(-90 50 300)">AURÉA</text>
+ </svg>
+ </div>
+ <div class="rip"></div><div class="rip"></div><div class="rip"></div>
+</div></div></div>
+
+<div id="count">01 <span>/ 04</span></div>
+<div id="hint">Role · Setas · Deslize</div>
+<div id="arrows"><button onclick="go(-1)">←</button><button onclick="go(1)">→</button></div>
+
+<script>
+const N=4,xs=[24,-24,24,-24],rz=[-16,14,-28,10];
+const cube=document.getElementById('cube'),faces=[...document.querySelectorAll('.face')],links=[...document.querySelectorAll('nav a')],
+brush=document.getElementById('brush'),cnt=document.getElementById('count');
+let k=0,lock=false;
+const mod=n=>((n%N)+N)%N;
+function apply(){
+ const p=mod(k);
+ document.body.style.setProperty('--k',k);
+ cube.style.setProperty('--i',k);
+ brush.style.setProperty('--x',xs[p]);
+ document.getElementById('spin').style.setProperty('--rz',rz[p]+'deg');
+ faces.forEach((f,i)=>f.classList.toggle('on',i===p));
+ links.forEach((l,i)=>l.classList.toggle('on',i===p));
+ cnt.innerHTML='0'+(p+1)+' <span>/ 04</span>';
+}
+function go(d){if(lock)return;lock=true;k+=d;apply();setTimeout(()=>lock=false,1400)}
+function to(p){let d=p-mod(k);if(d===3)d=-1;if(d===-3)d=1;if(d)go(d)}
+links.forEach(l=>l.onclick=()=>to(+l.dataset.p));
+addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>20)go(e.deltaY>0?1:-1)},{passive:true});
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown','PageDown'].includes(e.key))go(1);if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(-1)});
+let sx=0;addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50)go(d<0?1:-1)});
+addEventListener('mousemove',e=>{
+ const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5,t=document.getElementById('tilt');
+ t.style.setProperty('--mx',x);t.style.setProperty('--my',y);
+});
+apply();
+</script>
+</body>
+</html>
